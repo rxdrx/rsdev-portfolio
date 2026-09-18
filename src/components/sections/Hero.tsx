@@ -32,13 +32,25 @@ export function Hero() {
         transition: "opacity 0.4s ease",
       }}
     >
-      {/* ── BLOQUE CENTRAL: grilla asimétrica nombre + acerca de mí ── */}
+      {/* Línea vertical divisora — arranca desde el borde de la navbar */}
+      <div
+        className="hidden lg:block"
+        style={{
+          position: "absolute",
+          top: "-65px",
+          bottom: 0,
+          right: "500px",
+          width: "1px",
+          backgroundColor: "var(--color-ink)",
+        }}
+      />
+
+      {/* ── BLOQUE CENTRAL: grilla asétrica nombre + acerca de mí ── */}
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-[1fr_500px]">
 
         {/* Columna izquierda: identidad completa */}
         <div
           className="flex flex-col justify-center px-site py-16 lg:py-0"
-          style={{ borderRight: "1px solid var(--color-ink)" }}
         >
           {/* Nombre principal — tipografía display al máximo */}
           <h1
@@ -97,10 +109,32 @@ export function Hero() {
             className="flex flex-wrap gap-3"
             style={{ marginTop: "clamp(2rem, 4vw, 3rem)" }}
           >
-            <a href="#proyectos" className="btn-editorial">
+            <a
+              href="#proyectos"
+              className="btn-editorial"
+              onClick={(e) => {
+                e.preventDefault();
+                const target = document.querySelector("#proyectos") as HTMLElement | null;
+                if (target) {
+                  const navHeight = (document.querySelector("header") as HTMLElement)?.offsetHeight ?? 42;
+                  window.scrollTo({ top: target.offsetTop - navHeight, behavior: "smooth" });
+                }
+              }}
+            >
               Ver proyectos ↓
             </a>
-            <a href="#contacto" className="btn-ghost">
+            <a
+              href="#contacto"
+              className="btn-ghost"
+              onClick={(e) => {
+                e.preventDefault();
+                const target = document.querySelector("#contacto") as HTMLElement | null;
+                if (target) {
+                  const navHeight = (document.querySelector("header") as HTMLElement)?.offsetHeight ?? 42;
+                  window.scrollTo({ top: target.offsetTop - navHeight, behavior: "smooth" });
+                }
+              }}
+            >
               Contacto
             </a>
           </div>
@@ -194,10 +228,13 @@ export function Hero() {
         </aside>
       </div>
 
-      {/* ── PIE DEL HERO: línea divisora ───────────────────────── */}
+      {/* ── PIE DEL HERO: "Scroll para explorar" en el flujo flex ── */}
       <div
-        className="flex items-center justify-between px-site py-4"
-        style={{ borderTop: "1px solid var(--color-ink)" }}
+        className="flex items-center justify-between px-site"
+        style={{
+          padding: "3px var(--px-site)",
+          borderTop: "1px solid var(--color-ink)",
+        }}
       >
         <span className="text-label" style={{ color: "var(--color-ink-muted)" }}>
           Scroll para explorar

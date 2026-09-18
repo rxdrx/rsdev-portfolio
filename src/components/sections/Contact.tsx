@@ -4,8 +4,8 @@
 // Título "Hablemos." reducido a escala proporcional con el resto.
 // Banda de disponibilidad full-width.
 // Tabla editorial de links: plataforma / URL / meta / flecha.
-// Sin SectionNumber. Sin formularios.
 // ============================================================
+import { useState } from "react";
 
 const CONTACT_LINKS = [
   {
@@ -14,32 +14,47 @@ const CONTACT_LINKS = [
     href: "https://github.com/rxdrx",
     display: "github.com/rxdrx",
     meta: "Código y proyectos",
+    isCopy: false,
   },
   {
     id: "contact-linkedin",
     platform: "LinkedIn",
-    href: "https://linkedin.com/in/rodrigo-sisko",
-    display: "linkedin.com/in/rodrigo-sisko",
+    href: "https://www.linkedin.com/in/rodrigosisko",
+    display: "linkedin.com/in/rodrigosisko",
     meta: "Perfil profesional",
+    isCopy: false,
   },
   {
     id: "contact-email",
     platform: "Email",
-    href: "mailto:rodrisisko@gmail.com",
+    emailValue: ["rodrisisko", "gmail.com"].join("@"),
     display: "rodrisisko@gmail.com",
-    meta: "Respuesta en 24–48 hs",
+    meta: "Copiar email",
+    isCopy: true,
   },
 ] as const;
 
 export function Contact() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const email = ["rodrisisko", "gmail.com"].join("@");
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
   return (
     <div
       id="contacto"
-      style={{ borderBottom: "1px solid var(--color-ink)" }}
+      style={{
+        marginTop: "3rem",
+      }}
     >
       {/* Header — título a escala proporcional con las demás secciones */}
       <div
-        className="px-site pt-8 pb-6"
+        className="px-site pt-6 pb-4"
         style={{ borderBottom: "1px solid var(--color-ink)" }}
       >
         <div className="flex items-end justify-between gap-6">
@@ -116,69 +131,145 @@ export function Contact() {
 
       {/* Lista editorial de links */}
       <div className="flex flex-col">
-        {CONTACT_LINKS.map((link, index) => (
-          <a
-            key={link.id}
-            id={link.id}
-            href={link.href}
-            target={link.href.startsWith("http") ? "_blank" : undefined}
-            rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-            className="group"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "100px 1fr auto auto",
-              alignItems: "center",
-              gap: "1rem 2rem",
-              padding: "1rem var(--px-site)",
-              borderBottom:
-                index < CONTACT_LINKS.length - 1
-                  ? "1px solid var(--color-ink)"
-                  : "none",
-              textDecoration: "none",
-              transition: "background-color 0.15s ease",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.backgroundColor =
-                "var(--color-paper-warm)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
-            }}
-          >
-            <span className="text-label">{link.platform}</span>
-            <span
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(1rem, 2.5vw, 2rem)",
-                color: "var(--color-ink)",
-                letterSpacing: "-0.02em",
-                lineHeight: 1,
-              }}
-            >
-              {link.display}
-            </span>
-            <span
-              className="hidden md:block text-label"
-              style={{ textAlign: "right" }}
-            >
-              {link.meta}
-            </span>
-            <span
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "1rem",
-                color: "var(--color-ink-muted)",
-                display: "inline-block",
-                transition: "transform 0.15s ease",
-              }}
-              className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-            >
-              ↗
-            </span>
-          </a>
-        ))}
-      </div>
+        {CONTACT_LINKS.map((link, index) => {
+          if (link.isCopy) {
+            return (
+              <button
+                key={link.id}
+                id={link.id}
+                type="button"
+                onClick={handleCopyEmail}
+                className="group cursor-pointer text-left w-full"
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "100px 1fr auto auto",
+                  alignItems: "center",
+                  gap: "1rem 2rem",
+                  padding: "1rem var(--px-site)",
+                  borderBottom:
+                    index < CONTACT_LINKS.length - 1
+                      ? "1px solid var(--color-ink)"
+                      : "none",
+                  backgroundColor: copied ? "var(--color-paper-warm)" : "transparent",
+                  borderTop: "none",
+                  borderLeft: "none",
+                  borderRight: "none",
+                  transition: "background-color 0.15s ease",
+                }}
+                onMouseEnter={(e) => {
+                  if (!copied) {
+                    (e.currentTarget as HTMLElement).style.backgroundColor =
+                      "var(--color-paper-warm)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!copied) {
+                    (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
+                  }
+                }}
+              >
+                <span className="text-label">{link.platform}</span>
+                <span
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "clamp(1rem, 2.5vw, 2rem)",
+                    color: "var(--color-ink)",
+                    letterSpacing: "-0.02em",
+                    lineHeight: 1,
+                  }}
+                >
+                  {link.display}
+                </span>
+                <span
+                  className="hidden md:block text-label"
+                  style={{
+                    textAlign: "right",
+                    color: copied ? "var(--color-ink)" : undefined,
+                    fontWeight: copied ? 700 : undefined,
+                  }}
+                >
+                  {copied ? "Copiado al portapapeles" : link.meta}
+                </span>
+                <span
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "1rem",
+                    color: copied ? "var(--color-ink)" : "var(--color-ink-muted)",
+                    fontWeight: copied ? 700 : 400,
+                    display: "inline-block",
+                    transition: "transform 0.15s ease",
+                  }}
+                  className={copied ? "" : "group-hover:translate-x-0.5 group-hover:-translate-y-0.5"}
+                >
+                  {copied ? "✓" : "↗"}
+                </span>
+              </button>
+            );
+          }
 
+          return (
+            <a
+              key={link.id}
+              id={link.id}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "100px 1fr auto auto",
+                alignItems: "center",
+                gap: "1rem 2rem",
+                padding: "1rem var(--px-site)",
+                borderBottom:
+                  index < CONTACT_LINKS.length - 1
+                    ? "1px solid var(--color-ink)"
+                    : "none",
+                textDecoration: "none",
+                transition: "background-color 0.15s ease",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.backgroundColor =
+                  "var(--color-paper-warm)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
+              }}
+            >
+              <span className="text-label">{link.platform}</span>
+              <span
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(1rem, 2.5vw, 2rem)",
+                  color: "var(--color-ink)",
+                  letterSpacing: "-0.02em",
+                  lineHeight: 1,
+                }}
+              >
+                {link.display}
+              </span>
+              <span
+                className="hidden md:block text-label"
+                style={{ textAlign: "right" }}
+              >
+                {link.meta}
+              </span>
+              <span
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "1rem",
+                  color: "var(--color-ink-muted)",
+                  display: "inline-block",
+                  transition: "transform 0.15s ease",
+                }}
+                className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              >
+                ↗
+              </span>
+            </a>
+          );
+        })}
+      </div>
     </div>
   );
 }

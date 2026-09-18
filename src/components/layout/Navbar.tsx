@@ -8,6 +8,7 @@
 import { useState, useEffect } from "react";
 
 const NAV_LINKS = [
+  { label: "inicio", href: "#top" },
   { label: "proyectos", href: "#proyectos" },
   { label: "stack", href: "#stack" },
   { label: "trayectoria", href: "#trayectoria" },
@@ -26,7 +27,7 @@ export function Navbar() {
 
   return (
     <header
-      className="sticky top-0 z-50 w-full"
+      className="fixed top-0 z-50 w-full"
       style={{
         backgroundColor: scrolled
           ? "rgba(245, 242, 237, 0.96)"
@@ -41,7 +42,7 @@ export function Navbar() {
         role="navigation"
         aria-label="Navegación principal"
       >
-        {/* Switch de Idioma (ES / EN) — Arriba a la izquierda */}
+        {/* Switch de Idioma (ES / EN) — Izquierda */}
         <div
           className="flex items-center gap-1.5 px-2.5 py-1"
           style={{
@@ -100,6 +101,19 @@ export function Navbar() {
                 }}
                 onMouseLeave={(e) => {
                   (e.target as HTMLElement).style.color = "var(--color-ink-muted)";
+                }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (link.href === "#top") {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  } else {
+                    const targetId = link.href === "#trayectoria" ? "#contacto" : link.href;
+                    const target = document.querySelector(targetId) as HTMLElement | null;
+                    if (target) {
+                      const navHeight = (document.querySelector("header") as HTMLElement)?.offsetHeight ?? 42;
+                      window.scrollTo({ top: target.offsetTop - navHeight, behavior: "smooth" });
+                    }
+                  }
                 }}
               >
                 {link.label}

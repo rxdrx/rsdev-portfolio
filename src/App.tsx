@@ -17,6 +17,9 @@ function App() {
   useEffect(() => {
     let isScrolling = false;
 
+    // Resetear al top en cada carga para evitar posiciones intermedias
+    window.scrollTo({ top: 0, behavior: "instant" });
+
     const handleWheel = (e: WheelEvent) => {
       if (Math.abs(e.deltaY) < 15 || isScrolling) return;
 
@@ -26,12 +29,12 @@ function App() {
       if (sections.length === 0) return;
 
       const currentScroll = window.scrollY;
-      const navHeight = 65;
+      const navHeight = (document.querySelector("header") as HTMLElement)?.offsetHeight ?? 65;
 
       let currentIndex = 0;
       for (let i = 0; i < sections.length; i++) {
         const sectionTop = sections[i].offsetTop - navHeight;
-        if (currentScroll >= sectionTop - 100) {
+        if (currentScroll >= sectionTop - 50) {
           currentIndex = i;
         }
       }
@@ -41,7 +44,16 @@ function App() {
       if (targetIndex >= 0 && targetIndex < sections.length) {
         e.preventDefault();
         isScrolling = true;
-        const targetTop = sections[targetIndex].offsetTop - navHeight;
+        let targetTop = 0;
+        if (targetIndex > 0) {
+          targetTop = sections[targetIndex].offsetTop - navHeight;
+          if (targetIndex === 3) {
+            const contactoTarget = document.querySelector("#contacto") as HTMLElement | null;
+            if (contactoTarget) {
+              targetTop = contactoTarget.offsetTop - navHeight;
+            }
+          }
+        }
 
         window.scrollTo({
           top: targetTop,
@@ -68,7 +80,7 @@ function App() {
     >
       <Navbar />
 
-      <main>
+      <main style={{ paddingTop: "65px" }}>
         {/* Pantalla 1: Hero */}
         <Hero />
 
@@ -81,10 +93,9 @@ function App() {
         {/* Pantalla 4: Formación Académica + Contacto + Footer */}
         <section
           id="trayectoria"
-          className="snap-section flex flex-col justify-between"
+          className="snap-section flex flex-col justify-start"
           style={{
-            height: "calc(100vh - 65px)",
-            minHeight: "calc(100vh - 65px)",
+            minHeight: "auto",
           }}
         >
           <Experience />
@@ -93,6 +104,7 @@ function App() {
           {/* Footer — compacto centrado copyright 2026 */}
           <footer
             style={{
+              marginTop: 0,
               borderTop: "1px solid var(--color-ink)",
               backgroundColor: "var(--color-ink)",
               padding: "1rem var(--px-site)",

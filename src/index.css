@@ -51,8 +51,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
-  scroll-padding-top: 5rem;
+  /* scroll-snap gestionado por el handler JS en App.tsx — no usar CSS snap aquí */
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -60,10 +59,7 @@ html {
 }
 
 .snap-section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  min-height: 100vh;
-  scroll-margin-top: 5rem;
+  /* Alturas controladas inline en cada sección */
 }
 
 body {

@@ -12,6 +12,7 @@ const DEFAULT_PLACEHOLDERS: Project[] = [
     stack: ["TypeScript", "React", "Node.js", "PostgreSQL"],
     year: "2025",
     inProduction: true,
+    repoUrl: "https://github.com/rxdrx",
   },
   {
     id: "p2",
@@ -21,6 +22,7 @@ const DEFAULT_PLACEHOLDERS: Project[] = [
     stack: ["Node.js", "Express", "MySQL", "API RESTful"],
     year: "2025",
     inProduction: true,
+    repoUrl: "https://github.com/rxdrx",
   },
   {
     id: "p3",
@@ -30,6 +32,7 @@ const DEFAULT_PLACEHOLDERS: Project[] = [
     stack: ["React", "TypeScript", "Tailwind CSS"],
     year: "2024",
     inProduction: false,
+    repoUrl: "https://github.com/rxdrx",
   },
   {
     id: "p4",
@@ -39,6 +42,7 @@ const DEFAULT_PLACEHOLDERS: Project[] = [
     stack: ["React", "Node.js", "PostgreSQL"],
     year: "2024",
     inProduction: false,
+    repoUrl: "https://github.com/rxdrx",
   },
   {
     id: "p5",
@@ -48,6 +52,7 @@ const DEFAULT_PLACEHOLDERS: Project[] = [
     stack: ["React Native", "TypeScript", "API REST"],
     year: "2024",
     inProduction: false,
+    repoUrl: "https://github.com/rxdrx",
   },
 ];
 
@@ -86,20 +91,7 @@ export function Projects() {
               Proyectos Destacados
             </h2>
           </div>
-          <span
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(1.1rem, 2.5vw, 2rem)",
-              fontStyle: "italic",
-              color: "var(--color-ink-muted)",
-              letterSpacing: "-0.03em",
-              lineHeight: 1,
-              whiteSpace: "nowrap",
-              marginBottom: "0.75rem",
-            }}
-          >
-            6 selecciones
-          </span>
+
         </div>
       </div>
 
@@ -122,10 +114,14 @@ export function Projects() {
 function MoreProjectsCard() {
   return (
     <article
-      className="border-editorial flex flex-col justify-between p-6 h-full transition-all duration-150"
+      className="border-editorial flex flex-col justify-between py-8 px-8 h-full transition-all duration-150 cursor-pointer"
       style={{
+        minHeight: "260px",
         backgroundColor: "var(--color-accent)",
         boxShadow: "var(--shadow-hard-sm)",
+      }}
+      onClick={() => {
+        window.open("https://github.com/rxdrx?tab=repositories", "_blank", "noopener,noreferrer");
       }}
       onMouseEnter={(e) => {
         (e.currentTarget as HTMLElement).style.boxShadow = "var(--shadow-hard)";
@@ -136,8 +132,8 @@ function MoreProjectsCard() {
         (e.currentTarget as HTMLElement).style.transform = "translate(0, 0)";
       }}
     >
-      <div className="flex flex-col gap-4">
-        <span className="text-label" style={{ color: "var(--color-ink)" }}>
+      <div className="flex flex-col gap-4 px-2 my-auto">
+        <span className="text-label text-center" style={{ color: "var(--color-ink)" }}>
           Repositorio &amp; Código
         </span>
         <h3
@@ -147,6 +143,7 @@ function MoreProjectsCard() {
             lineHeight: 1.1,
             letterSpacing: "-0.02em",
             color: "var(--color-ink)",
+            textAlign: "center",
           }}
         >
           Explorá más proyectos
@@ -158,26 +155,11 @@ function MoreProjectsCard() {
             lineHeight: 1.6,
             color: "var(--color-ink)",
             opacity: 0.85,
+            textAlign: "center",
           }}
         >
-          Accedé al catálogo completo de repositorios, herramientas experimentales y prototipos en GitHub.
+          Accedé al catálogo completo de repositorios, herramientas experimentales y prototipos en GitHub ↗
         </p>
-      </div>
-
-      <div className="pt-6 mt-auto">
-        <a
-          href="https://github.com/rxdrx?tab=repositories"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-editorial w-full text-center block"
-          style={{
-            backgroundColor: "var(--color-ink)",
-            color: "var(--color-paper)",
-            borderColor: "var(--color-ink)",
-          }}
-        >
-          Ver más ↗
-        </a>
       </div>
     </article>
   );
