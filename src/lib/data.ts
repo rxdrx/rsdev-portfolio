@@ -4,7 +4,7 @@
 // Los componentes consumen estos datos de forma modular.
 // ============================================================
 
-import type { Project, StackDomain, ExperienceEntry } from "@/lib/types";
+import type { Project, LabProject, StackDomain, ExperienceEntry } from "@/lib/types";
 
 // ------------------------------------------------------------
 // STACK TECNOLÓGICO
@@ -49,8 +49,6 @@ export const EXPERIENCE: ExperienceEntry[] = [
 
 // ------------------------------------------------------------
 // PROYECTOS DESTACADOS — Sistemas en Producción
-// TODO: Completá con tus proyectos reales.
-// Seguí la interfaz `Project` definida en src/lib/types.ts
 // ------------------------------------------------------------
 export const FEATURED_PROJECTS: Project[] = [
   {
@@ -59,7 +57,6 @@ export const FEATURED_PROJECTS: Project[] = [
     description: "Proyecto de e-commerce de tipo marketplace. Hecho a medida de una propuesta de trabajo real en una página de freelancers.",
     stack: ["TypeScript", "Next.js", "Tailwind CSS", "Supabase"],
     repoUrl: "https://github.com/rxdrx/ecommerce-regh",
-    //liveUrl: "",
     year: "2026",
     inProduction: false
   },
@@ -69,7 +66,6 @@ export const FEATURED_PROJECTS: Project[] = [
     description: "Es una aplicación movil realizada para ayudar a orientarse a personas no videntes y/o con deficiencias visuales.",
     stack: ["React Native", "TypeScript"],
     repoUrl: "https://github.com/rxdrx/paseapp",
-    //liveUrl: "",
     year: "2026",
     inProduction: false
   },
@@ -79,7 +75,6 @@ export const FEATURED_PROJECTS: Project[] = [
     description: "Hicimos en equipo un sistema de gestión de stock para una tienda de calzado, diseñamos la base de datos, las tablas y relaciones. Los usuarios pueden registrarse y modificar sus datos personas. Los administradores disponen de un dashboard donde pueden controlar el stock y mas estadísticas de la tienda.",
     stack: ["JavaScript", "Express", "PostgreSQL", "Node.js", "Sequelize", "HTML", "CSS"],
     repoUrl: "https://github.com/rxdrx/backend-proyecto-final",
-    //liveUrl: "",
     year: "2025 - 2026",
     inProduction: false
   },
@@ -88,7 +83,6 @@ export const FEATURED_PROJECTS: Project[] = [
     title: "Landing page cafeteria",
     description: "Es una pagina web básica para una cafeteria.",
     stack: ["TypeScript", "HTML", "CSS", "Vite"],
-    //repoUrl: "",
     liveUrl: "https://rxdrx.github.io/rsdev-landing-cafe/",
     year: "2026",
     inProduction: true
@@ -99,8 +93,12 @@ export const FEATURED_PROJECTS: Project[] = [
     description: "Es una pagina web que muestra productos de carpintería a medida, para una empresa familiar.",
     stack: ["TypeScript", "HTML", "CSS", "Vite"],
     repoUrl: "https://github.com/rxdrx/romia-carp",
-    //liveUrl: "",
     year: "2026",
     inProduction: false
   },
 ];
+
+// ------------------------------------------------------------
+// LABORATORIO / EXPLORACIONES
+// ------------------------------------------------------------
+export const LAB_PROJECTS: LabProject[] = [];
