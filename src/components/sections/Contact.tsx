@@ -1,41 +1,15 @@
 // ============================================================
-// Contact — Sección de Contacto
-//
-// Título "Hablemos." reducido a escala proporcional con el resto.
-// Banda de disponibilidad full-width.
-// Tabla editorial de links: plataforma / URL / meta / flecha.
+// Contact — Sección de Contacto (Multilingüe)
 // ============================================================
-import { useState } from "react";
 
-const CONTACT_LINKS = [
-  {
-    id: "contact-github",
-    platform: "GitHub",
-    href: "https://github.com/rxdrx",
-    display: "github.com/rxdrx",
-    meta: "Código y proyectos",
-    isCopy: false,
-  },
-  {
-    id: "contact-linkedin",
-    platform: "LinkedIn",
-    href: "https://www.linkedin.com/in/rodrigosisko",
-    display: "linkedin.com/in/rodrigosisko",
-    meta: "Perfil profesional",
-    isCopy: false,
-  },
-  {
-    id: "contact-email",
-    platform: "Email",
-    emailValue: ["rodrisisko", "gmail.com"].join("@"),
-    display: "rodrisisko@gmail.com",
-    meta: "Copiar email",
-    isCopy: true,
-  },
-] as const;
+import { useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
+import { CONTACT_TEXT } from "@/lib/data";
 
 export function Contact() {
   const [copied, setCopied] = useState(false);
+  const { lang } = useLanguage();
+  const t = CONTACT_TEXT[lang];
 
   const handleCopyEmail = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -44,6 +18,33 @@ export function Contact() {
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
+
+  const contactLinks = [
+    {
+      id: "contact-github",
+      platform: "GitHub",
+      href: "https://github.com/rxdrx",
+      display: "github.com/rxdrx",
+      meta: t.githubMeta,
+      isCopy: false,
+    },
+    {
+      id: "contact-linkedin",
+      platform: "LinkedIn",
+      href: "https://www.linkedin.com/in/rodrigosisko",
+      display: "linkedin.com/in/rodrigosisko",
+      meta: t.linkedinMeta,
+      isCopy: false,
+    },
+    {
+      id: "contact-email",
+      platform: "Email",
+      emailValue: ["rodrisisko", "gmail.com"].join("@"),
+      display: "rodrisisko@gmail.com",
+      meta: t.emailMeta,
+      isCopy: true,
+    },
+  ];
 
   return (
     <div
@@ -67,7 +68,7 @@ export function Contact() {
               color: "var(--color-ink)",
             }}
           >
-            Hablemos
+            {t.title}
             <span style={{ color: "var(--color-accent)" }}>.</span>
           </h2>
           {/* Disponibilidad inline */}
@@ -90,7 +91,7 @@ export function Contact() {
                 color: "var(--color-ink)",
               }}
             >
-              Disponible
+              {t.availableInline}
             </span>
           </div>
         </div>
@@ -114,7 +115,7 @@ export function Contact() {
             color: "var(--color-ink)",
           }}
         >
-          Disponible para proyectos freelance y posiciones remotas
+          {t.availableBanner}
         </span>
         <span
           style={{
@@ -125,13 +126,13 @@ export function Contact() {
             opacity: 0.65,
           }}
         >
-          Septiembre 2026
+          {t.bannerDate}
         </span>
       </div>
 
       {/* Lista editorial de links */}
       <div className="flex flex-col">
-        {CONTACT_LINKS.map((link, index) => {
+        {contactLinks.map((link, index) => {
           if (link.isCopy) {
             return (
               <button
@@ -147,7 +148,7 @@ export function Contact() {
                   gap: "1rem 2rem",
                   padding: "1rem var(--px-site)",
                   borderBottom:
-                    index < CONTACT_LINKS.length - 1
+                    index < contactLinks.length - 1
                       ? "1px solid var(--color-ink)"
                       : "none",
                   backgroundColor: copied ? "var(--color-paper-warm)" : "transparent",
@@ -188,7 +189,7 @@ export function Contact() {
                     fontWeight: copied ? 700 : undefined,
                   }}
                 >
-                  {copied ? "Copiado al portapapeles" : link.meta}
+                  {copied ? t.copiedMessage : link.meta}
                 </span>
                 <span
                   style={{
@@ -222,7 +223,7 @@ export function Contact() {
                 gap: "1rem 2rem",
                 padding: "1rem var(--px-site)",
                 borderBottom:
-                  index < CONTACT_LINKS.length - 1
+                  index < contactLinks.length - 1
                     ? "1px solid var(--color-ink)"
                     : "none",
                 textDecoration: "none",

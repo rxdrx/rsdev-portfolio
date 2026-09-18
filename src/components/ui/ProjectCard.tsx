@@ -1,14 +1,10 @@
 // ============================================================
-// ProjectCard — Tarjeta modular para Proyectos Destacados
-//
-// Variantes:
-//   - `featured`: ancho completo, tipografía más grande, layout horizontal
-//   - default: tarjeta compacta para la grilla de 2 columnas
-//
-// Diseño: borde sólido 1px, sombra dura sin blur, sin rounded-2xl.
+// ProjectCard — Tarjeta modular para Proyectos Destacados (Multilingüe)
 // ============================================================
 
 import type { Project } from "@/lib/types";
+import { useLanguage } from "@/context/LanguageContext";
+import { PROJECTS_TEXT } from "@/lib/data";
 
 interface ProjectCardProps {
   project: Project;
@@ -16,6 +12,9 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, featured = false }: ProjectCardProps) {
+  const { lang } = useLanguage();
+  const t = PROJECTS_TEXT[lang];
+
   const targetUrl = project.inProduction
     ? project.liveUrl || project.repoUrl || "https://github.com/rxdrx"
     : project.repoUrl || "https://github.com/rxdrx";
@@ -48,7 +47,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
           <div className="flex items-center gap-4">
             <span className="text-label">{project.year}</span>
             {project.inProduction ? (
-              <span className="text-label-accent">En producción</span>
+              <span className="text-label-accent">{t.inProduction}</span>
             ) : (
               <span
                 style={{
@@ -63,7 +62,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
                   color: "var(--color-ink-secondary)",
                 }}
               >
-                En desarrollo
+                {t.inDevelopment}
               </span>
             )}
             {project.category && (
@@ -124,7 +123,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
           <div className="flex items-center justify-between px-2">
             <span className="text-label">{project.year}</span>
             {project.inProduction ? (
-              <span className="text-label-accent">En producción</span>
+              <span className="text-label-accent">{t.inProduction}</span>
             ) : (
               <span
                 style={{
@@ -139,7 +138,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
                   color: "var(--color-ink-secondary)",
                 }}
               >
-                En desarrollo
+                {t.inDevelopment}
               </span>
             )}
           </div>

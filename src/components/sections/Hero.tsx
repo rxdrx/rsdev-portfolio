@@ -1,18 +1,16 @@
 // ============================================================
-// Hero — Alto Impacto Tipográfico (v2 — limpio)
-//
-// Cambios respecto a v1:
-//   - Eliminada la barra superior con rol/años/disponibilidad
-//   - Rol integrado debajo del nombre con jerarquía tipográfica clara
-//   - Columna derecha: solo metadata contextual (sin links duplicados)
-//   - Mantiene marquesina negra como cierre de sección
+// Hero — Alto Impacto Tipográfico (v2 — limpio & multilingüe)
 // ============================================================
 
 import { useEffect, useRef, useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
+import { HERO_TEXT } from "@/lib/data";
 
 export function Hero() {
   const [isVisible, setIsVisible] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
+  const { lang } = useLanguage();
+  const t = HERO_TEXT[lang];
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 80);
@@ -45,7 +43,7 @@ export function Hero() {
         }}
       />
 
-      {/* ── BLOQUE CENTRAL: grilla asétrica nombre + acerca de mí ── */}
+      {/* ── BLOQUE CENTRAL: grilla asimétrica nombre + acerca de mí ── */}
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-[1fr_500px]">
 
         {/* Columna izquierda: identidad completa */}
@@ -60,7 +58,7 @@ export function Hero() {
               lineHeight: 0.88,
               letterSpacing: "-0.04em",
               color: "var(--color-ink)",
-              marginLeft: "-0.04em", // sangrado hacia el borde
+              marginLeft: "-0.04em",
             }}
           >
             Rodrigo
@@ -89,7 +87,7 @@ export function Hero() {
                 letterSpacing: "-0.015em",
               }}
             >
-              Desarrollador Full Stack
+              {t.role}
             </p>
             <p
               style={{
@@ -121,7 +119,7 @@ export function Hero() {
                 }
               }}
             >
-              Ver proyectos ↓
+              {t.viewProjects}
             </a>
             <a
               href="#contacto"
@@ -135,7 +133,7 @@ export function Hero() {
                 }
               }}
             >
-              Contacto
+              {t.contact}
             </a>
           </div>
         </div>
@@ -147,7 +145,7 @@ export function Hero() {
         >
           {/* Bloque: Acerca de mí */}
           <div className="flex flex-col gap-3">
-            <span className="text-label">Acerca de mí</span>
+            <span className="text-label">{t.aboutTitle}</span>
             <p
               style={{
                 fontFamily: "var(--font-mono)",
@@ -156,10 +154,10 @@ export function Hero() {
                 color: "var(--color-ink-secondary)",
               }}
             >
-              Desarrollador Full Stack recibido de la UTN, enfocado en el desarrollo web y backend con JavaScript, TypeScript, React y bases de datos SQL.
+              {t.aboutP1}
               <br />
               <br />
-              Orientado a diseñar arquitecturas limpias, estructurar bases de datos relacionales e integrar APIs RESTful para resolver problemas técnicos concretos con código robusto y mantenible.
+              {t.aboutP2}
             </p>
           </div>
 
@@ -168,7 +166,7 @@ export function Hero() {
             className="flex flex-col gap-3 pt-5"
             style={{ borderTop: "1px solid var(--color-ink)" }}
           >
-            <span className="text-label">Ubicación</span>
+            <span className="text-label">{t.locationTitle}</span>
             <span
               style={{
                 fontFamily: "var(--font-display)",
@@ -176,7 +174,7 @@ export function Hero() {
                 color: "var(--color-ink)",
               }}
             >
-              Bahía Blanca, Argentina
+              {t.locationValue}
             </span>
           </div>
 
@@ -185,7 +183,7 @@ export function Hero() {
             className="flex flex-col gap-3 pt-5"
             style={{ borderTop: "1px solid var(--color-ink)" }}
           >
-            <span className="text-label">Idiomas</span>
+            <span className="text-label">{t.languagesTitle}</span>
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
                 <span
@@ -196,13 +194,13 @@ export function Hero() {
                     fontWeight: 500,
                   }}
                 >
-                  Español
+                  {t.spanish}
                 </span>
                 <span
                   className="text-label"
                   style={{ color: "var(--color-ink-muted)" }}
                 >
-                  Nativo
+                  {t.spanishLevel}
                 </span>
               </div>
               <div className="flex items-center justify-between">
@@ -214,13 +212,13 @@ export function Hero() {
                     fontWeight: 500,
                   }}
                 >
-                  Inglés
+                  {t.english}
                 </span>
                 <span
                   className="text-label"
                   style={{ color: "var(--color-ink-muted)" }}
                 >
-                  Básico (estudiando)
+                  {t.englishLevel}
                 </span>
               </div>
             </div>
@@ -237,7 +235,7 @@ export function Hero() {
         }}
       >
         <span className="text-label" style={{ color: "var(--color-ink-muted)" }}>
-          Scroll para explorar
+          {t.scrollExplore}
         </span>
       </div>
     </section>

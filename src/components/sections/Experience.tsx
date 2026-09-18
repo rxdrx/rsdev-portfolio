@@ -1,36 +1,15 @@
 // ============================================================
-// Experience — Trayectoria / Formación
-//
-// Layout 2 columnas: período+estado izquierda / contenido derecha.
-// Sin SectionNumber. Padding consistente con el resto del sitio.
+// Experience — Trayectoria / Formación (Multilingüe)
 // ============================================================
 
-const EDUCATION = [
-  {
-    id: "utn",
-    period: "2024 — 2026",
-    institution: "Universidad Tecnológica Nacional",
-    title: "Tecnicatura Universitaria en Programación",
-    location: "Bahía Blanca, Argentina",
-    status: "Titulado",
-    detail:
-      "Formación universitaria con énfasis en algoritmos, estructuras de datos, patrones de diseño, programación orientada a objetos, ciclo de vida del software y desarrollo de software.",
-    tags: ["Algoritmos", "POO", "Bases de Datos"],
-  },
-  {
-    id: "la-piedad",
-    period: "2014 — 2022",
-    institution: 'Instituto Técnico "La Piedad"',
-    title: "Técnico en Informática",
-    location: "Bahía Blanca, Argentina",
-    status: "Titulado",
-    detail:
-      "Formación técnica secundaria en sistemas informáticos, hardware, redes, bases de datos, paquete office y programación básica.",
-    tags: ["Hardware", "Redes", "Sistemas", "Programación"],
-  },
-] as const;
+import { useLanguage } from "@/context/LanguageContext";
+import { EXPERIENCE_TEXT, EXPERIENCE } from "@/lib/data";
 
 export function Experience() {
+  const { lang } = useLanguage();
+  const educationList = EXPERIENCE[lang];
+  const t = EXPERIENCE_TEXT[lang];
+
   return (
     <div
       style={{ borderBottom: "1px solid var(--color-ink)" }}
@@ -53,7 +32,7 @@ export function Experience() {
                 letterSpacing: "-0.035em",
               }}
             >
-              Formación Académica
+              {t.title}
             </h2>
           </div>
         </div>
@@ -61,7 +40,7 @@ export function Experience() {
 
       {/* Entradas */}
       <div className="flex flex-col">
-        {EDUCATION.map((entry) => (
+        {educationList.map((entry) => (
           <div
             key={entry.id}
             className="grid grid-cols-1 lg:grid-cols-[30%_1fr]"
@@ -101,7 +80,7 @@ export function Experience() {
                 {entry.institution}
               </span>
 
-              {/* Badge de estado (Titulado) arriba de la ubicación */}
+              {/* Badge de estado */}
               <div className="pt-1">
                 <span
                   style={{
@@ -111,10 +90,7 @@ export function Experience() {
                     fontWeight: 700,
                     letterSpacing: "0.12em",
                     textTransform: "uppercase",
-                    backgroundColor:
-                      (entry.status as string) === "En curso"
-                        ? "var(--color-accent)"
-                        : "var(--color-paper-warm)",
+                    backgroundColor: "var(--color-paper-warm)",
                     padding: "0.2em 0.6em",
                     border: "1px solid var(--color-ink)",
                   }}

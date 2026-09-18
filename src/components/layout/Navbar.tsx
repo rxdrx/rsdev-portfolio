@@ -3,27 +3,24 @@
 //
 // Movimiento de autor: borde inferior 1px de lado a lado, sticky.
 // Sin "rs.dev", sin decoraciones. Nombre completo como ancla.
+// Conectada a LanguageContext para switch reactivo ES / EN.
 // ============================================================
 
 import { useState, useEffect } from "react";
-
-const NAV_LINKS = [
-  { label: "inicio", href: "#top" },
-  { label: "proyectos", href: "#proyectos" },
-  { label: "stack", href: "#stack" },
-  { label: "trayectoria", href: "#trayectoria" },
-  { label: "contacto", href: "#contacto" },
-] as const;
+import { useLanguage } from "@/context/LanguageContext";
+import { NAV_LINKS } from "@/lib/data";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [lang, setLang] = useState<"es" | "en">("es");
+  const { lang, setLang } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const currentNavLinks = NAV_LINKS[lang];
 
   return (
     <header
@@ -90,7 +87,7 @@ export function Navbar() {
 
         {/* Links de navegación */}
         <ul className="flex items-center gap-8 list-none">
-          {NAV_LINKS.map((link) => (
+          {currentNavLinks.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}

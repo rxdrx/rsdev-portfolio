@@ -1,42 +1,15 @@
 // ============================================================
-// Stack — Tecnologías y Habilidades
-//
-// Grilla de 4 columnas tipo tabla de periódico técnico.
-// Sin SectionNumber. Sin barras de progreso.
-// Padding generoso en celdas para respiro visual.
+// Stack — Tecnologías y Habilidades (Multilingüe)
 // ============================================================
 
-const DOMAINS = [
-  {
-    id: "lenguajes",
-    label: "Lenguajes y Core",
-    items: ["JavaScript", "TypeScript", "Python"],
-  },
-  {
-    id: "frontend",
-    label: "Frontend",
-    items: ["React", "React Native", "HTML5", "CSS3"],
-  },
-  {
-    id: "backend",
-    label: "Backend y Datos",
-    items: ["Node.js", "Express", "PostgreSQL", "MySQL", "API RESTful"],
-  },
-  {
-    id: "herramientas",
-    label: "Herramientas",
-    items: [
-      "Git",
-      "GitHub",
-      "Jira",
-      "Modelado de datos",
-      "Arquitectura de Software",
-      "Desarrollo con IA",
-    ],
-  },
-] as const;
+import { useLanguage } from "@/context/LanguageContext";
+import { STACK_TEXT, STACK_DOMAINS } from "@/lib/data";
 
 export function Stack() {
+  const { lang } = useLanguage();
+  const domains = STACK_DOMAINS[lang];
+  const t = STACK_TEXT[lang];
+
   return (
     <section
       id="stack"
@@ -65,7 +38,7 @@ export function Stack() {
                 letterSpacing: "-0.035em",
               }}
             >
-              Stack Técnico
+              {t.title}
             </h2>
           </div>
         </div>
@@ -74,7 +47,7 @@ export function Stack() {
       {/* Grilla de 4 columnas centrada verticalmente */}
       <div className="flex-1 flex flex-col justify-center">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          {DOMAINS.map((domain, index) => (
+          {domains.map((domain, index) => (
             <div
               key={domain.id}
               className="flex flex-col"
@@ -84,7 +57,7 @@ export function Stack() {
                 paddingLeft: "var(--px-site)",
                 paddingRight: "var(--px-site)",
                 borderRight:
-                  index < DOMAINS.length - 1
+                  index < domains.length - 1
                     ? "1px solid var(--color-ink)"
                     : "none",
               }}
@@ -111,10 +84,10 @@ export function Stack() {
                   display: "block",
                 }}
               >
-                {domain.label}
+                {domain.domain}
               </span>
 
-              {/* Lista tipográfica con mayor espacio entre elementos */}
+              {/* Lista tipográfica */}
               <ul className="list-none flex flex-col gap-3.5">
                 {domain.items.map((item) => (
                   <li
@@ -135,7 +108,6 @@ export function Stack() {
           ))}
         </div>
       </div>
-
     </section>
   );
 }

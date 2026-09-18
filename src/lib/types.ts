@@ -1,8 +1,9 @@
 // ============================================================
 // TIPOS TIPADOS — Portfolio Rodrigo Sisko
-// Definí la forma de tus proyectos aquí; los componentes
-// modulares los consumen sin necesitar cambios de estructura.
+// Definiciones completas de tipos para datos e i18n
 // ============================================================
+
+export type Language = "es" | "en";
 
 export interface Project {
   /** Identificador único del proyecto */
@@ -39,6 +40,7 @@ export interface LabProject {
 }
 
 export interface StackDomain {
+  id: string;
   /** Nombre del dominio (ej: "Frontend", "Backend") */
   domain: string;
   /** Lista de tecnologías en ese dominio */
@@ -46,12 +48,19 @@ export interface StackDomain {
 }
 
 export interface ExperienceEntry {
+  id: string;
+  /** Período: "2024 — 2026" */
+  period: string;
   /** Institución */
   institution: string;
   /** Título o carrera */
   title: string;
-  /** Período: "2024–2026" */
-  period: string;
-  /** Ubicación opcional */
-  location?: string;
+  /** Ubicación */
+  location: string;
+  /** Estado académico (ej: "Titulado" / "Graduated") */
+  status: string;
+  /** Detalle o resumen de la formación */
+  detail: string;
+  /** Etiquetas asociadas */
+  tags: string[];
 }

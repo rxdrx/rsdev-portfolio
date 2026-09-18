@@ -1,65 +1,17 @@
 import { ProjectCard } from "@/components/ui/ProjectCard";
-import { FEATURED_PROJECTS } from "@/lib/data";
+import { FEATURED_PROJECTS, DEFAULT_PLACEHOLDERS, PROJECTS_TEXT } from "@/lib/data";
+import { useLanguage } from "@/context/LanguageContext";
 import type { Project } from "@/lib/types";
 
-// Placeholders de demostración cuando FEATURED_PROJECTS no tiene 5 elementos
-const DEFAULT_PLACEHOLDERS: Project[] = [
-  {
-    id: "p1",
-    title: "Sistema de Gestión Integrado",
-    description:
-      "Plataforma web con arquitectura en capas, autenticación JWT, gestión de roles y reportes dinámicos.",
-    stack: ["TypeScript", "React", "Node.js", "PostgreSQL"],
-    year: "2025",
-    inProduction: true,
-    repoUrl: "https://github.com/rxdrx",
-  },
-  {
-    id: "p2",
-    title: "API RESTful & Backend Core",
-    description:
-      "Servicio backend desacoplado con ORM, validación estricta de esquemas, consultas SQL optimizadas y OpenAPI.",
-    stack: ["Node.js", "Express", "MySQL", "API RESTful"],
-    year: "2025",
-    inProduction: true,
-    repoUrl: "https://github.com/rxdrx",
-  },
-  {
-    id: "p3",
-    title: "Dashboard & Analítica Técnica",
-    description:
-      "Panel de control interactivo con métricas en tiempo real, visualización de datos y componentes modulares.",
-    stack: ["React", "TypeScript", "Tailwind CSS"],
-    year: "2024",
-    inProduction: false,
-    repoUrl: "https://github.com/rxdrx",
-  },
-  {
-    id: "p4",
-    title: "E-commerce & Checkout Seguro",
-    description:
-      "Aplicación de comercio electrónico con catálogo dinámico, carrito de compras persistente e integración de pagos.",
-    stack: ["React", "Node.js", "PostgreSQL"],
-    year: "2024",
-    inProduction: false,
-    repoUrl: "https://github.com/rxdrx",
-  },
-  {
-    id: "p5",
-    title: "Aplicación Móvil Cross-Platform",
-    description:
-      "App móvil para gestión de tareas y flujos de trabajo con sincronización de datos y soporte offline.",
-    stack: ["React Native", "TypeScript", "API REST"],
-    year: "2024",
-    inProduction: false,
-    repoUrl: "https://github.com/rxdrx",
-  },
-];
-
 export function Projects() {
+  const { lang } = useLanguage();
+  const t = PROJECTS_TEXT[lang];
+  const featuredProjects = FEATURED_PROJECTS[lang];
+  const defaultPlaceholders = DEFAULT_PLACEHOLDERS[lang];
+
   // Población de 5 proyectos (reales o placeholders) + 1 tarjeta "Ver más"
   const displayProjects: Project[] = Array.from({ length: 5 }, (_, i) => {
-    return FEATURED_PROJECTS[i] || DEFAULT_PLACEHOLDERS[i];
+    return featuredProjects[i] || defaultPlaceholders[i];
   });
 
   return (
@@ -88,10 +40,9 @@ export function Projects() {
                 paddingBottom: "0.5rem",
               }}
             >
-              Proyectos Destacados
+              {t.title}
             </h2>
           </div>
-
         </div>
       </div>
 
@@ -110,8 +61,11 @@ export function Projects() {
   );
 }
 
-// ── Tarjeta especial "Ver más" (abaja a la derecha, slot 6) ────────
+// ── Tarjeta especial "Ver más" (abajo a la derecha, slot 6) ────────
 function MoreProjectsCard() {
+  const { lang } = useLanguage();
+  const t = PROJECTS_TEXT[lang];
+
   return (
     <article
       className="border-editorial flex flex-col justify-between py-8 px-8 h-full transition-all duration-150 cursor-pointer"
@@ -134,7 +88,7 @@ function MoreProjectsCard() {
     >
       <div className="flex flex-col gap-4 px-2 my-auto">
         <span className="text-label text-center" style={{ color: "var(--color-ink)" }}>
-          Repositorio &amp; Código
+          {t.moreLabel}
         </span>
         <h3
           style={{
@@ -146,7 +100,7 @@ function MoreProjectsCard() {
             textAlign: "center",
           }}
         >
-          Explorá más proyectos
+          {t.moreTitle}
         </h3>
         <p
           style={{
@@ -158,7 +112,7 @@ function MoreProjectsCard() {
             textAlign: "center",
           }}
         >
-          Accedé al catálogo completo de repositorios, herramientas experimentales y prototipos en GitHub ↗
+          {t.moreDesc}
         </p>
       </div>
     </article>
