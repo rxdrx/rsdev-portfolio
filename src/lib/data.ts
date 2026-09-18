@@ -104,19 +104,3 @@ export const FEATURED_PROJECTS: Project[] = [
     inProduction: false
   },
 ];
-
-// ------------------------------------------------------------
-// LABORATORIO / EXPLORACIONES
-// TODO: Listado de proyectos menores, herramientas o experimentos.
-// Seguí la interfaz `LabProject` definida en src/lib/types.ts
-// ------------------------------------------------------------
-export const LAB_PROJECTS: LabProject[] = [
-  // Ejemplo de estructura (descomenta y completá):
-  // {
-  //   name: "Nombre del experimento",
-  //   tech: "TypeScript",
-  //   year: "2024",
-  //   description: "Una oración sobre qué hace.",
-  //   url: "https://github.com/rxdrx/repo",
-  // },
-];
