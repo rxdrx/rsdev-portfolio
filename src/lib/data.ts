@@ -4,7 +4,7 @@
 // Los componentes consumen estos datos de forma modular.
 // ============================================================
 
-import type { Project, LabProject, StackDomain, ExperienceEntry } from "@/lib/types";
+import type { Project, StackDomain, ExperienceEntry } from "@/lib/types";
 
 // ------------------------------------------------------------
 // STACK TECNOLÓGICO
