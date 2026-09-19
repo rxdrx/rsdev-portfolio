@@ -5,6 +5,8 @@
 
 export type Language = "es" | "en";
 
+export type ProjectStatus = "production" | "completed" | "development";
+
 export interface Project {
   /** Identificador único del proyecto */
   id: string;
@@ -22,7 +24,9 @@ export interface Project {
   year: string;
   /** Categoría para filtros futuros (opcional) */
   category?: string;
-  /** ¿Está actualmente en producción? */
+  /** Estado del proyecto: 'production' | 'completed' | 'development' */
+  status?: ProjectStatus;
+  /** @deprecated Usar status en su lugar */
   inProduction?: boolean;
 }
 

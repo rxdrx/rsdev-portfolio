@@ -83,6 +83,7 @@ export const HERO_TEXT: Record<Language, {
 export const PROJECTS_TEXT: Record<Language, {
   title: string;
   inProduction: string;
+  completed: string;
   inDevelopment: string;
   moreLabel: string;
   moreTitle: string;
@@ -91,6 +92,7 @@ export const PROJECTS_TEXT: Record<Language, {
   es: {
     title: "Proyectos Destacados",
     inProduction: "En producción",
+    completed: "Terminado",
     inDevelopment: "En desarrollo",
     moreLabel: "Repositorio & Código",
     moreTitle: "Explorá más proyectos",
@@ -99,6 +101,7 @@ export const PROJECTS_TEXT: Record<Language, {
   en: {
     title: "Featured Projects",
     inProduction: "In production",
+    completed: "Completed",
     inDevelopment: "In development",
     moreLabel: "Repository & Code",
     moreTitle: "Explore more projects",
@@ -115,6 +118,7 @@ export const FEATURED_PROJECTS: Record<Language, Project[]> = {
       stack: ["TypeScript", "Next.js", "Tailwind CSS", "Supabase"],
       repoUrl: "https://github.com/rxdrx/ecommerce-regh",
       year: "2026",
+      status: "completed",
       inProduction: false,
     },
     {
@@ -124,6 +128,7 @@ export const FEATURED_PROJECTS: Record<Language, Project[]> = {
       stack: ["React Native", "TypeScript"],
       repoUrl: "https://github.com/rxdrx/paseapp",
       year: "2026",
+      status: "development",
       inProduction: false,
     },
     {
@@ -133,6 +138,7 @@ export const FEATURED_PROJECTS: Record<Language, Project[]> = {
       stack: ["JavaScript", "Express", "PostgreSQL", "Node.js", "Sequelize", "HTML", "CSS"],
       repoUrl: "https://github.com/rxdrx/backend-proyecto-final",
       year: "2025 - 2026",
+      status: "completed",
       inProduction: false,
     },
     {
@@ -142,6 +148,7 @@ export const FEATURED_PROJECTS: Record<Language, Project[]> = {
       stack: ["TypeScript", "HTML", "CSS", "Vite"],
       liveUrl: "https://rxdrx.github.io/rsdev-landing-cafe/",
       year: "2026",
+      status: "production",
       inProduction: true,
     },
     {
@@ -151,6 +158,7 @@ export const FEATURED_PROJECTS: Record<Language, Project[]> = {
       stack: ["TypeScript", "HTML", "CSS", "Vite"],
       repoUrl: "https://github.com/rxdrx/romia-carp",
       year: "2026",
+      status: "completed",
       inProduction: false,
     },
   ],
@@ -162,6 +170,7 @@ export const FEATURED_PROJECTS: Record<Language, Project[]> = {
       stack: ["TypeScript", "Next.js", "Tailwind CSS", "Supabase"],
       repoUrl: "https://github.com/rxdrx/ecommerce-regh",
       year: "2026",
+      status: "development",
       inProduction: false,
     },
     {
@@ -171,6 +180,7 @@ export const FEATURED_PROJECTS: Record<Language, Project[]> = {
       stack: ["React Native", "TypeScript"],
       repoUrl: "https://github.com/rxdrx/paseapp",
       year: "2026",
+      status: "completed",
       inProduction: false,
     },
     {
@@ -180,6 +190,7 @@ export const FEATURED_PROJECTS: Record<Language, Project[]> = {
       stack: ["JavaScript", "Express", "PostgreSQL", "Node.js", "Sequelize", "HTML", "CSS"],
       repoUrl: "https://github.com/rxdrx/backend-proyecto-final",
       year: "2025 - 2026",
+      status: "completed",
       inProduction: false,
     },
     {
@@ -189,6 +200,7 @@ export const FEATURED_PROJECTS: Record<Language, Project[]> = {
       stack: ["TypeScript", "HTML", "CSS", "Vite"],
       liveUrl: "https://rxdrx.github.io/rsdev-landing-cafe/",
       year: "2026",
+      status: "production",
       inProduction: true,
     },
     {
@@ -198,6 +210,7 @@ export const FEATURED_PROJECTS: Record<Language, Project[]> = {
       stack: ["TypeScript", "HTML", "CSS", "Vite"],
       repoUrl: "https://github.com/rxdrx/romia-carp",
       year: "2026",
+      status: "completed",
       inProduction: false,
     },
   ],
@@ -211,6 +224,7 @@ export const DEFAULT_PLACEHOLDERS: Record<Language, Project[]> = {
       description: "Plataforma web con arquitectura en capas, autenticación JWT, gestión de roles y reportes dinámicos.",
       stack: ["TypeScript", "React", "Node.js", "PostgreSQL"],
       year: "2025",
+      status: "production",
       inProduction: true,
       repoUrl: "https://github.com/rxdrx",
     },
@@ -220,6 +234,7 @@ export const DEFAULT_PLACEHOLDERS: Record<Language, Project[]> = {
       description: "Servicio backend desacoplado con ORM, validación estricta de esquemas, consultas SQL optimizadas y OpenAPI.",
       stack: ["Node.js", "Express", "MySQL", "API RESTful"],
       year: "2025",
+      status: "production",
       inProduction: true,
       repoUrl: "https://github.com/rxdrx",
     },
@@ -229,6 +244,7 @@ export const DEFAULT_PLACEHOLDERS: Record<Language, Project[]> = {
       description: "Panel de control interactivo con métricas en tiempo real, visualización de datos y componentes modulares.",
       stack: ["React", "TypeScript", "Tailwind CSS"],
       year: "2024",
+      status: "completed",
       inProduction: false,
       repoUrl: "https://github.com/rxdrx",
     },
@@ -238,6 +254,7 @@ export const DEFAULT_PLACEHOLDERS: Record<Language, Project[]> = {
       description: "Aplicación de comercio electrónico con catálogo dinámico, carrito de compras persistente e integración de pagos.",
       stack: ["React", "Node.js", "PostgreSQL"],
       year: "2024",
+      status: "completed",
       inProduction: false,
       repoUrl: "https://github.com/rxdrx",
     },
@@ -247,6 +264,7 @@ export const DEFAULT_PLACEHOLDERS: Record<Language, Project[]> = {
       description: "App móvil para gestión de tareas y flujos de trabajo con sincronización de datos y soporte offline.",
       stack: ["React Native", "TypeScript", "API REST"],
       year: "2024",
+      status: "development",
       inProduction: false,
       repoUrl: "https://github.com/rxdrx",
     },
@@ -258,6 +276,7 @@ export const DEFAULT_PLACEHOLDERS: Record<Language, Project[]> = {
       description: "Web platform featuring layered architecture, JWT authentication, role management, and dynamic reports.",
       stack: ["TypeScript", "React", "Node.js", "PostgreSQL"],
       year: "2025",
+      status: "production",
       inProduction: true,
       repoUrl: "https://github.com/rxdrx",
     },
@@ -267,6 +286,7 @@ export const DEFAULT_PLACEHOLDERS: Record<Language, Project[]> = {
       description: "Decoupled backend service with ORM, strict schema validation, optimized SQL queries, and OpenAPI.",
       stack: ["Node.js", "Express", "MySQL", "API RESTful"],
       year: "2025",
+      status: "production",
       inProduction: true,
       repoUrl: "https://github.com/rxdrx",
     },
@@ -276,6 +296,7 @@ export const DEFAULT_PLACEHOLDERS: Record<Language, Project[]> = {
       description: "Interactive dashboard featuring real-time metrics, data visualization, and modular components.",
       stack: ["React", "TypeScript", "Tailwind CSS"],
       year: "2024",
+      status: "completed",
       inProduction: false,
       repoUrl: "https://github.com/rxdrx",
     },
@@ -285,6 +306,7 @@ export const DEFAULT_PLACEHOLDERS: Record<Language, Project[]> = {
       description: "E-commerce application featuring dynamic catalog, persistent shopping cart, and payment integration.",
       stack: ["React", "Node.js", "PostgreSQL"],
       year: "2024",
+      status: "completed",
       inProduction: false,
       repoUrl: "https://github.com/rxdrx",
     },
@@ -294,6 +316,7 @@ export const DEFAULT_PLACEHOLDERS: Record<Language, Project[]> = {
       description: "Mobile application for task and workflow management with data synchronization and offline support.",
       stack: ["React Native", "TypeScript", "API REST"],
       year: "2024",
+      status: "development",
       inProduction: false,
       repoUrl: "https://github.com/rxdrx",
     },

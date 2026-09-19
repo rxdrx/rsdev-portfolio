@@ -1,5 +1,6 @@
 // ============================================================
 // ProjectCard — Tarjeta modular para Proyectos Destacados (Multilingüe)
+// Soporta 3 estados: En producción / Terminado / En desarrollo
 // ============================================================
 
 import type { Project } from "@/lib/types";
@@ -15,9 +16,52 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
   const { lang } = useLanguage();
   const t = PROJECTS_TEXT[lang];
 
-  const targetUrl = project.inProduction
-    ? project.liveUrl || project.repoUrl || "https://github.com/rxdrx"
-    : project.repoUrl || "https://github.com/rxdrx";
+  const projectStatus = project.status || (project.inProduction ? "production" : "development");
+  const targetUrl = (projectStatus === "production" && project.liveUrl)
+    ? project.liveUrl
+    : project.repoUrl || project.liveUrl || "https://github.com/rxdrx";
+
+  const renderBadge = () => {
+    if (projectStatus === "production") {
+      return <span className="text-label-accent">{t.inProduction}</span>;
+    }
+    if (projectStatus === "completed") {
+      return (
+        <span
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.68rem",
+            fontWeight: 700,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            backgroundColor: "var(--color-ink)",
+            color: "var(--color-paper)",
+            padding: "0.2em 0.6em",
+            border: "1px solid var(--color-ink)",
+          }}
+        >
+          {t.completed}
+        </span>
+      );
+    }
+    return (
+      <span
+        style={{
+          fontFamily: "var(--font-mono)",
+          fontSize: "0.68rem",
+          fontWeight: 700,
+          letterSpacing: "0.08em",
+          textTransform: "uppercase",
+          backgroundColor: "var(--color-paper-warm)",
+          border: "1px solid var(--color-ink)",
+          padding: "0.2em 0.6em",
+          color: "var(--color-ink-secondary)",
+        }}
+      >
+        {t.inDevelopment}
+      </span>
+    );
+  };
 
   return (
     <article
@@ -46,25 +90,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
           {/* Header */}
           <div className="flex items-center gap-4">
             <span className="text-label">{project.year}</span>
-            {project.inProduction ? (
-              <span className="text-label-accent">{t.inProduction}</span>
-            ) : (
-              <span
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.68rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  backgroundColor: "var(--color-paper-warm)",
-                  border: "1px solid var(--color-ink)",
-                  padding: "0.2em 0.6em",
-                  color: "var(--color-ink-secondary)",
-                }}
-              >
-                {t.inDevelopment}
-              </span>
-            )}
+            {renderBadge()}
             {project.category && (
               <span className="text-label">{project.category}</span>
             )}
@@ -122,25 +148,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
         <div className="flex flex-col gap-5 py-8 px-8 h-full justify-between">
           <div className="flex items-center justify-between px-2">
             <span className="text-label">{project.year}</span>
-            {project.inProduction ? (
-              <span className="text-label-accent">{t.inProduction}</span>
-            ) : (
-              <span
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.68rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  backgroundColor: "var(--color-paper-warm)",
-                  border: "1px solid var(--color-ink)",
-                  padding: "0.2em 0.6em",
-                  color: "var(--color-ink-secondary)",
-                }}
-              >
-                {t.inDevelopment}
-              </span>
-            )}
+            {renderBadge()}
           </div>
 
           <h3
