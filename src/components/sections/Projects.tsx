@@ -3,7 +3,11 @@ import { FEATURED_PROJECTS, DEFAULT_PLACEHOLDERS, PROJECTS_TEXT } from "@/lib/da
 import { useLanguage } from "@/context/LanguageContext";
 import type { Project } from "@/lib/types";
 
-export function Projects() {
+interface ProjectsProps {
+  onNavigateToMoreProjects?: () => void;
+}
+
+export function Projects({ onNavigateToMoreProjects }: ProjectsProps) {
   const { lang } = useLanguage();
   const t = PROJECTS_TEXT[lang];
   const featuredProjects = FEATURED_PROJECTS[lang];
@@ -30,18 +34,27 @@ export function Projects() {
         style={{ borderBottom: "1px solid var(--color-ink)" }}
       >
         <div className="flex items-end justify-between gap-6">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-1">
             <h2
               style={{
                 fontFamily: "var(--font-display)",
                 fontSize: "clamp(2.2rem, 5.5vw, 4.5rem)",
                 lineHeight: 1.15,
                 letterSpacing: "-0.035em",
-                paddingBottom: "0.5rem",
               }}
             >
               {t.title}
             </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.8rem",
+                color: "var(--color-ink-muted)",
+                letterSpacing: "0.02em",
+              }}
+            >
+              {t.subtitle}
+            </p>
           </div>
         </div>
       </div>
@@ -54,7 +67,7 @@ export function Projects() {
           ))}
 
           {/* Tarjeta 6 (Abajo a la derecha): Ver más */}
-          <MoreProjectsCard />
+          <MoreProjectsCard onClick={onNavigateToMoreProjects} />
         </div>
       </div>
     </section>
@@ -62,20 +75,24 @@ export function Projects() {
 }
 
 // ── Tarjeta especial "Ver más" (abajo a la derecha, slot 6) ────────
-function MoreProjectsCard() {
+function MoreProjectsCard({ onClick }: { onClick?: () => void }) {
   const { lang } = useLanguage();
   const t = PROJECTS_TEXT[lang];
 
   return (
     <article
-      className="border-editorial flex flex-col justify-between py-8 px-8 h-full transition-all duration-150 cursor-pointer"
+      className="border-editorial flex flex-col justify-center items-center py-8 px-8 h-full transition-all duration-150 cursor-pointer"
       style={{
         minHeight: "260px",
         backgroundColor: "var(--color-accent)",
         boxShadow: "var(--shadow-hard-sm)",
       }}
       onClick={() => {
-        window.open("https://github.com/rxdrx?tab=repositories", "_blank", "noopener,noreferrer");
+        if (onClick) {
+          onClick();
+        } else {
+          window.open("https://github.com/rxdrx?tab=repositories", "_blank", "noopener,noreferrer");
+        }
       }}
       onMouseEnter={(e) => {
         (e.currentTarget as HTMLElement).style.boxShadow = "var(--shadow-hard)";
@@ -86,10 +103,7 @@ function MoreProjectsCard() {
         (e.currentTarget as HTMLElement).style.transform = "translate(0, 0)";
       }}
     >
-      <div className="flex flex-col gap-4 px-2 my-auto">
-        <span className="text-label text-center" style={{ color: "var(--color-ink)" }}>
-          {t.moreLabel}
-        </span>
+      <div className="flex flex-col items-center justify-center gap-4 px-2 my-auto">
         <h3
           style={{
             fontFamily: "var(--font-display)",
@@ -114,6 +128,27 @@ function MoreProjectsCard() {
         >
           {t.moreDesc}
         </p>
+
+        <div className="flex justify-center pt-2">
+          <span
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              padding: "0.55rem 1.4rem",
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.75rem",
+              fontWeight: 700,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              backgroundColor: "var(--color-ink)",
+              color: "#ffffff",
+              border: "1px solid var(--color-ink)",
+            }}
+          >
+            {t.seeMoreBtn}
+          </span>
+        </div>
       </div>
     </article>
   );

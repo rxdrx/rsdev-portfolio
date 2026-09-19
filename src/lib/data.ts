@@ -82,30 +82,56 @@ export const HERO_TEXT: Record<Language, {
 // ------------------------------------------------------------
 export const PROJECTS_TEXT: Record<Language, {
   title: string;
+  subtitle: string;
   inProduction: string;
   completed: string;
   inDevelopment: string;
-  moreLabel: string;
   moreTitle: string;
   moreDesc: string;
+  seeMoreBtn: string;
 }> = {
   es: {
     title: "Proyectos Destacados",
+    subtitle: "Explora los proyectos haciendo clic en las tarjetas",
     inProduction: "En producción",
     completed: "Terminado",
     inDevelopment: "En desarrollo",
-    moreLabel: "Repositorio & Código",
     moreTitle: "Explorá más proyectos",
-    moreDesc: "Accedé al catálogo completo de repositorios, herramientas experimentales y prototipos en GitHub ↗",
+    moreDesc: "Accedé al catálogo completo de proyectos, repositorios, herramientas y prototipos.",
+    seeMoreBtn: "Ver más ↗",
   },
   en: {
     title: "Featured Projects",
+    subtitle: "Explore projects by clicking on the cards",
     inProduction: "In production",
     completed: "Completed",
     inDevelopment: "In development",
-    moreLabel: "Repository & Code",
     moreTitle: "Explore more projects",
-    moreDesc: "Access the full catalog of repositories, experimental tools, and prototypes on GitHub ↗",
+    moreDesc: "Access the full catalog of projects, repositories, tools, and prototypes.",
+    seeMoreBtn: "View more ↗",
+  },
+};
+
+// ------------------------------------------------------------
+// PÁGINA SECUNDARIA: DESCUBRÍ OTROS PROYECTOS
+// ------------------------------------------------------------
+export const MORE_PROJECTS_PAGE_TEXT: Record<Language, {
+  backHome: string;
+  moreProjectsTitle: string;
+  comingSoon: string;
+  page: string;
+}> = {
+  es: {
+    backHome: "← Volver al inicio",
+    moreProjectsTitle: "Descubrí otros proyectos",
+    comingSoon: "Próximamente",
+    page: "Página",
+  },
+  en: {
+    backHome: "← Back to home",
+    moreProjectsTitle: "Discover other projects",
+    comingSoon: "Coming soon",
+    page: "Page",
   },
 };
 

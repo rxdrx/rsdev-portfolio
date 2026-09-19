@@ -1,6 +1,6 @@
 // ============================================================
 // ProjectCard — Tarjeta modular para Proyectos Destacados (Multilingüe)
-// Soporta 3 estados: En producción / Terminado / En desarrollo
+// Fondo gris cálido (paper-warm) con fecha y tecnologías en tinta principal (color-ink)
 // ============================================================
 
 import type { Project } from "@/lib/types";
@@ -52,10 +52,10 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
           fontWeight: 700,
           letterSpacing: "0.08em",
           textTransform: "uppercase",
-          backgroundColor: "var(--color-paper-warm)",
+          backgroundColor: "var(--color-paper)",
           border: "1px solid var(--color-ink)",
           padding: "0.2em 0.6em",
-          color: "var(--color-ink-secondary)",
+          color: "var(--color-ink)",
         }}
       >
         {t.inDevelopment}
@@ -68,6 +68,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
       className="border-editorial flex flex-col transition-all duration-150 cursor-pointer"
       style={{
         minHeight: "260px",
+        backgroundColor: "var(--color-paper-warm)",
         boxShadow: "var(--shadow-hard-sm)",
       }}
       onClick={() => {
@@ -89,10 +90,14 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
         <div className="flex flex-col gap-5 p-8 md:p-10">
           {/* Header */}
           <div className="flex items-center gap-4">
-            <span className="text-label">{project.year}</span>
+            <span className="text-label" style={{ color: "var(--color-ink)" }}>
+              {project.year}
+            </span>
             {renderBadge()}
             {project.category && (
-              <span className="text-label">{project.category}</span>
+              <span className="text-label" style={{ color: "var(--color-ink)" }}>
+                {project.category}
+              </span>
             )}
           </div>
 
@@ -103,6 +108,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
               fontSize: "clamp(1.8rem, 4vw, 3.5rem)",
               lineHeight: 1,
               letterSpacing: "-0.03em",
+              color: "var(--color-ink)",
             }}
           >
             {project.title}
@@ -124,7 +130,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
           {/* Stack */}
           <div
             className="flex flex-wrap gap-x-4 gap-y-1 pt-4"
-            style={{ borderTop: "1px solid var(--color-paper-warm)" }}
+            style={{ borderTop: "1px solid var(--color-ink)" }}
           >
             {project.stack.map((tech) => (
               <span
@@ -135,7 +141,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
                   fontWeight: 600,
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
-                  color: "var(--color-ink-secondary)",
+                  color: "var(--color-ink)",
                 }}
               >
                 {tech}
@@ -147,7 +153,9 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
         /* ── Variante Default: layout vertical compacto ── */
         <div className="flex flex-col gap-5 py-8 px-8 h-full justify-between">
           <div className="flex items-center justify-between px-2">
-            <span className="text-label">{project.year}</span>
+            <span className="text-label" style={{ color: "var(--color-ink)" }}>
+              {project.year}
+            </span>
             {renderBadge()}
           </div>
 
@@ -158,6 +166,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
               lineHeight: 1.15,
               letterSpacing: "-0.02em",
               textAlign: "center",
+              color: "var(--color-ink)",
             }}
           >
             {project.title}
@@ -178,7 +187,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
 
           <div
             className="flex flex-wrap justify-center gap-x-3.5 gap-y-1 py-3 px-2 mt-auto"
-            style={{ borderTop: "1px solid var(--color-paper-warm)" }}
+            style={{ borderTop: "1px solid var(--color-ink)" }}
           >
             {project.stack.map((tech) => (
               <span
@@ -189,7 +198,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
                   fontWeight: 600,
                   letterSpacing: "0.08em",
                   textTransform: "uppercase",
-                  color: "var(--color-ink-muted)",
+                  color: "var(--color-ink)",
                 }}
               >
                 {tech}

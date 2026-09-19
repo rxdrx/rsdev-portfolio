@@ -1,16 +1,17 @@
 // ============================================================
 // Navbar — Barra de navegación editorial
-//
-// Movimiento de autor: borde inferior 1px de lado a lado, sticky.
-// Sin "rs.dev", sin decoraciones. Nombre completo como ancla.
-// Conectada a LanguageContext para switch reactivo ES / EN.
 // ============================================================
 
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import { NAV_LINKS } from "@/lib/data";
+import { NAV_LINKS, MORE_PROJECTS_PAGE_TEXT } from "@/lib/data";
 
-export function Navbar() {
+interface NavbarProps {
+  isSecondaryPage?: boolean;
+  onBackToHome?: () => void;
+}
+
+export function Navbar({ isSecondaryPage = false, onBackToHome }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const { lang, setLang } = useLanguage();
 
@@ -85,42 +86,57 @@ export function Navbar() {
           </button>
         </div>
 
-        {/* Links de navegación */}
-        <ul className="flex items-center gap-8 list-none">
-          {currentNavLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="text-label transition-colors duration-150"
-                style={{ color: "var(--color-ink-muted)" }}
-                onMouseEnter={(e) => {
-                  (e.target as HTMLElement).style.color = "var(--color-ink)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.target as HTMLElement).style.color = "var(--color-ink-muted)";
-                }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (link.href === "#top") {
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  } else {
-                    const targetId = link.href === "#trayectoria" ? "#contacto" : link.href;
-                    const target = document.querySelector(targetId) as HTMLElement | null;
-                    if (target) {
-                      const navHeight = (document.querySelector("header") as HTMLElement)?.offsetHeight ?? 42;
-                      window.scrollTo({ top: target.offsetTop - navHeight, behavior: "smooth" });
-                    }
-                  }
-                }}
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        {/* Espaciador derecho para equilibrar la barra */}
-        <div style={{ width: "62px" }} />
+        {/* Links de navegación o Botón de volver al inicio */}
+        {isSecondaryPage ? (
+          <button
+            type="button"
+            onClick={onBackToHome}
+            className="btn-editorial"
+            style={{
+              fontSize: "0.72rem",
+              padding: "0.4rem 1rem",
+            }}
+          >
+            {MORE_PROJECTS_PAGE_TEXT[lang].backHome}
+          </button>
+        ) : (
+          <>
+            <ul className="flex items-center gap-8 list-none">
+              {currentNavLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className="text-label transition-colors duration-150"
+                    style={{ color: "var(--color-ink-muted)" }}
+                    onMouseEnter={(e) => {
+                      (e.target as HTMLElement).style.color = "var(--color-ink)";
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.target as HTMLElement).style.color = "var(--color-ink-muted)";
+                    }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (link.href === "#top") {
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      } else {
+                        const targetId = link.href === "#trayectoria" ? "#contacto" : link.href;
+                        const target = document.querySelector(targetId) as HTMLElement | null;
+                        if (target) {
+                          const navHeight = (document.querySelector("header") as HTMLElement)?.offsetHeight ?? 42;
+                          window.scrollTo({ top: target.offsetTop - navHeight, behavior: "smooth" });
+                        }
+                      }
+                    }}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            {/* Espaciador derecho para equilibrar la barra */}
+            <div style={{ width: "62px" }} />
+          </>
+        )}
       </nav>
     </header>
   );

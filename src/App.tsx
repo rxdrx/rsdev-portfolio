@@ -1,23 +1,25 @@
 // ============================================================
 // App — Ensamblaje de la SPA
-// Lab eliminado: su contenido está integrado en Projects.
-// Footer limpio sin "rs.dev".
+// Soporta la vista principal y la vista secundaria de "Descubrí otros proyectos"
 // ============================================================
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Hero } from "@/components/sections/Hero";
 import { Projects } from "@/components/sections/Projects";
 import { Stack } from "@/components/sections/Stack";
 import { Experience } from "@/components/sections/Experience";
 import { Contact } from "@/components/sections/Contact";
+import { MoreProjectsPage } from "@/components/pages/MoreProjectsPage";
 
 function App() {
-  // Controller para transiciones de pantalla más suaves y pausadas (~0.85s)
-  useEffect(() => {
-    let isScrolling = false;
+  const [currentView, setCurrentView] = useState<"home" | "more-projects">("home");
 
-    // Resetear al top en cada carga para evitar posiciones intermedias
+  // Controller para transiciones de pantalla en la vista principal (~0.85s)
+  useEffect(() => {
+    if (currentView !== "home") return;
+
+    let isScrolling = false;
     window.scrollTo({ top: 0, behavior: "instant" });
 
     const handleWheel = (e: WheelEvent) => {
@@ -68,7 +70,17 @@ function App() {
 
     window.addEventListener("wheel", handleWheel, { passive: false });
     return () => window.removeEventListener("wheel", handleWheel);
-  }, []);
+  }, [currentView]);
+
+  const handleNavigateToMoreProjects = () => {
+    setCurrentView("more-projects");
+    window.scrollTo({ top: 0, behavior: "instant" });
+  };
+
+  const handleBackToHome = () => {
+    setCurrentView("home");
+    window.scrollTo({ top: 0, behavior: "instant" });
+  };
 
   return (
     <div
@@ -78,55 +90,65 @@ function App() {
         minHeight: "100vh",
       }}
     >
-      <Navbar />
+      <Navbar
+        isSecondaryPage={currentView === "more-projects"}
+        onBackToHome={handleBackToHome}
+      />
 
       <main style={{ paddingTop: "65px" }}>
-        {/* Pantalla 1: Hero */}
-        <Hero />
+        {currentView === "home" ? (
+          <>
+            {/* Pantalla 1: Hero */}
+            <Hero />
 
-        {/* Pantalla 2: Proyectos Destacados */}
-        <Projects />
+            {/* Pantalla 2: Proyectos Destacados */}
+            <Projects onNavigateToMoreProjects={handleNavigateToMoreProjects} />
 
-        {/* Pantalla 3: Stack Técnico */}
-        <Stack />
+            {/* Pantalla 3: Stack Técnico */}
+            <Stack />
 
-        {/* Pantalla 4: Formación Académica + Contacto + Footer */}
-        <section
-          id="trayectoria"
-          className="snap-section flex flex-col justify-start"
-          style={{
-            minHeight: "auto",
-          }}
-        >
-          <Experience />
-          <Contact />
-
-          {/* Footer — compacto centrado copyright 2026 */}
-          <footer
-            style={{
-              marginTop: 0,
-              borderTop: "1px solid var(--color-ink)",
-              backgroundColor: "var(--color-ink)",
-              padding: "1rem var(--px-site)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-            }}
-          >
-            <span
+            {/* Pantalla 4: Formación Académica + Contacto + Footer */}
+            <section
+              id="trayectoria"
+              className="snap-section flex flex-col justify-start"
               style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.7rem",
-                letterSpacing: "0.06em",
-                color: "var(--color-paper)",
-                opacity: 0.5,
+                minHeight: "auto",
               }}
             >
-              © 2026 Rodrigo Sisko
-            </span>
-          </footer>
-        </section>
+              <Experience />
+              <Contact />
+
+              {/* Footer */}
+              <footer
+                style={{
+                  marginTop: 0,
+                  borderTop: "1px solid var(--color-ink)",
+                  backgroundColor: "var(--color-ink)",
+                  padding: "1rem var(--px-site)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textAlign: "center",
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.7rem",
+                    letterSpacing: "0.06em",
+                    color: "var(--color-paper)",
+                    opacity: 0.5,
+                  }}
+                >
+                  © 2026 Rodrigo Sisko
+                </span>
+              </footer>
+            </section>
+          </>
+        ) : (
+          /* Vista secundaria: Descubrí otros proyectos */
+          <MoreProjectsPage />
+        )}
       </main>
     </div>
   );
