@@ -4,12 +4,17 @@
 
 import { useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import { MORE_PROJECTS_PAGE_TEXT } from "@/lib/data";
+import { MORE_PROJECTS_PAGE_TEXT, FEATURED_PROJECTS, DEFAULT_PLACEHOLDERS } from "@/lib/data";
+import { ProjectCard } from "@/components/ui/ProjectCard";
 
 export function MoreProjectsPage() {
   const { lang } = useLanguage();
   const t = MORE_PROJECTS_PAGE_TEXT[lang];
   const [page, setPage] = useState<number>(1);
+
+  const featuredProjects = FEATURED_PROJECTS[lang] || [];
+  const defaultPlaceholders = DEFAULT_PLACEHOLDERS[lang] || [];
+  const allProjects = [...featuredProjects, ...defaultPlaceholders];
 
   // 6 tarjetas por página
   const cards = Array.from({ length: 6 });
@@ -50,74 +55,83 @@ export function MoreProjectsPage() {
         style={{ marginTop: "-1.5rem" }}
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-          {cards.map((_, index) => (
-            <article
-              key={index}
-              className="border-editorial flex flex-col justify-between py-8 px-8 transition-all duration-150"
-              style={{
-                minHeight: "260px",
-                backgroundColor: "var(--color-paper-warm)",
-                boxShadow: "var(--shadow-hard-sm)",
-              }}
-            >
-              {/* Header de la tarjeta */}
-              <div className="flex items-center justify-between px-2">
-                <span className="text-label" style={{ color: "var(--color-ink)" }}>
-                  {t.page} {page} — 0{index + 1}
-                </span>
-                <span
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "0.68rem",
-                    fontWeight: 700,
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                    backgroundColor: "var(--color-paper)",
-                    border: "1px solid var(--color-ink)",
-                    padding: "0.2em 0.6em",
-                    color: "var(--color-ink-secondary)",
-                  }}
-                >
-                  {t.comingSoon}
-                </span>
-              </div>
+          {cards.map((_, index) => {
+            const globalIndex = (page - 1) * 6 + index;
+            const project = allProjects[globalIndex];
 
-              {/* Centro: Próximamente */}
-              <div className="flex flex-col items-center justify-center my-auto py-6">
-                <h3
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: "clamp(1.6rem, 3vw, 2.4rem)",
-                    lineHeight: 1.1,
-                    letterSpacing: "-0.02em",
-                    color: "var(--color-ink-secondary)",
-                    textAlign: "center",
-                  }}
-                >
-                  {t.comingSoon}
-                </h3>
-              </div>
+            if (project) {
+              return <ProjectCard key={project.id} project={project} />;
+            }
 
-              {/* Footer de la tarjeta */}
-              <div
-                className="flex justify-center py-3 px-2 mt-auto"
-                style={{ borderTop: "1px solid var(--color-ink)" }}
+            return (
+              <article
+                key={`placeholder-${index}`}
+                className="border-editorial flex flex-col justify-between py-8 px-8 transition-all duration-150"
+                style={{
+                  minHeight: "260px",
+                  backgroundColor: "var(--color-paper-warm)",
+                  boxShadow: "var(--shadow-hard-sm)",
+                }}
               >
-                <span
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "0.62rem",
-                    fontWeight: 600,
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                    color: "var(--color-ink-muted)",
-                  }}
+                {/* Header de la tarjeta */}
+                <div className="flex items-center justify-between px-2">
+                  <span className="text-label" style={{ color: "var(--color-ink)" }}>
+                    {t.page} {page} — 0{index + 1}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "0.68rem",
+                      fontWeight: 700,
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      backgroundColor: "var(--color-paper)",
+                      border: "1px solid var(--color-ink)",
+                      padding: "0.2em 0.6em",
+                      color: "var(--color-ink-secondary)",
+                    }}
+                  >
+                    {t.comingSoon}
+                  </span>
+                </div>
+
+                {/* Centro: Próximamente */}
+                <div className="flex flex-col items-center justify-center my-auto py-6">
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "clamp(1.6rem, 3vw, 2.4rem)",
+                      lineHeight: 1.1,
+                      letterSpacing: "-0.02em",
+                      color: "var(--color-ink-secondary)",
+                      textAlign: "center",
+                    }}
+                  >
+                    {t.comingSoon}
+                  </h3>
+                </div>
+
+                {/* Footer de la tarjeta */}
+                <div
+                  className="flex justify-center py-3 px-2 mt-auto"
+                  style={{ borderTop: "1px solid var(--color-ink)" }}
                 >
-                  ---
-                </span>
-              </div>
-            </article>
-          ))}
+                  <span
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "0.62rem",
+                      fontWeight: 600,
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      color: "var(--color-ink-muted)",
+                    }}
+                  >
+                    ---
+                  </span>
+                </div>
+              </article>
+            );
+          })}
         </div>
 
         {/* Paginación pegada cerca de las tarjetas y ubicada a la derecha */}
