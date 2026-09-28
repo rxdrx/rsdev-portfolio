@@ -4,7 +4,7 @@
 
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import { NAV_LINKS, MORE_PROJECTS_PAGE_TEXT } from "@/lib/data";
+import { NAV_LINKS, MORE_PROJECTS_PAGE_TEXT, CV_TEXT } from "@/lib/data";
 
 interface NavbarProps {
   isSecondaryPage?: boolean;
@@ -100,43 +100,55 @@ export function Navbar({ isSecondaryPage = false, onBackToHome }: NavbarProps) {
             {MORE_PROJECTS_PAGE_TEXT[lang].backHome}
           </button>
         ) : (
-          <>
-            <ul className="flex items-center gap-8 list-none">
-              {currentNavLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="text-label transition-colors duration-150"
-                    style={{ color: "var(--color-ink-muted)" }}
-                    onMouseEnter={(e) => {
-                      (e.target as HTMLElement).style.color = "var(--color-ink)";
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.target as HTMLElement).style.color = "var(--color-ink-muted)";
-                    }}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (link.href === "#top") {
-                        window.scrollTo({ top: 0, behavior: "smooth" });
-                      } else {
-                        const targetId = link.href === "#trayectoria" ? "#contacto" : link.href;
-                        const target = document.querySelector(targetId) as HTMLElement | null;
-                        if (target) {
-                          const navHeight = (document.querySelector("header") as HTMLElement)?.offsetHeight ?? 42;
-                          window.scrollTo({ top: target.offsetTop - navHeight, behavior: "smooth" });
-                        }
+          <ul className="flex items-center gap-8 list-none">
+            {currentNavLinks.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className="text-label transition-colors duration-150"
+                  style={{ color: "var(--color-ink-muted)" }}
+                  onMouseEnter={(e) => {
+                    (e.target as HTMLElement).style.color = "var(--color-ink)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.target as HTMLElement).style.color = "var(--color-ink-muted)";
+                  }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (link.href === "#top") {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    } else {
+                      const targetId = link.href === "#trayectoria" ? "#contacto" : link.href;
+                      const target = document.querySelector(targetId) as HTMLElement | null;
+                      if (target) {
+                        const navHeight = (document.querySelector("header") as HTMLElement)?.offsetHeight ?? 42;
+                        window.scrollTo({ top: target.offsetTop - navHeight, behavior: "smooth" });
                       }
-                    }}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-            {/* Espaciador derecho para equilibrar la barra */}
-            <div style={{ width: "62px" }} />
-          </>
+                    }
+                  }}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
         )}
+
+        {/* Botón de Descargar CV — Extremo Derecho */}
+        <a
+          href={CV_TEXT[lang].href}
+          download={CV_TEXT[lang].filename}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-editorial"
+          style={{
+            fontSize: "0.72rem",
+            padding: "0.38rem 0.9rem",
+            textDecoration: "none",
+          }}
+        >
+          {CV_TEXT[lang].downloadCv}
+        </a>
       </nav>
     </header>
   );

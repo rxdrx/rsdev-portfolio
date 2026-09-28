@@ -24,6 +24,19 @@ export const NAV_LINKS: Record<Language, Array<{ label: string; href: string }>>
   ],
 };
 
+export const CV_TEXT: Record<Language, { downloadCv: string; href: string; filename: string }> = {
+  es: {
+    downloadCv: "Descargar CV ↓",
+    href: "/cv-es-SiskoRodrigo.pdf",
+    filename: "cv-es-SiskoRodrigo.pdf",
+  },
+  en: {
+    downloadCv: "Download CV ↓",
+    href: "/cv-en-SiskoRodrigo.pdf",
+    filename: "cv-en-SiskoRodrigo.pdf",
+  },
+};
+
 // ------------------------------------------------------------
 // HERO SECTION
 // ------------------------------------------------------------
