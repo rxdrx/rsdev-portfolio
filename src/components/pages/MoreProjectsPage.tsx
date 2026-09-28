@@ -4,7 +4,7 @@
 
 import { useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import { MORE_PROJECTS_PAGE_TEXT, FEATURED_PROJECTS, DEFAULT_PLACEHOLDERS } from "@/lib/data";
+import { MORE_PROJECTS_PAGE_TEXT, FEATURED_PROJECTS } from "@/lib/data";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 
 export function MoreProjectsPage() {
@@ -13,8 +13,8 @@ export function MoreProjectsPage() {
   const [page, setPage] = useState<number>(1);
 
   const featuredProjects = FEATURED_PROJECTS[lang] || [];
-  const defaultPlaceholders = DEFAULT_PLACEHOLDERS[lang] || [];
-  const allProjects = [...featuredProjects, ...defaultPlaceholders];
+  // Excluimos los primeros 5 (destacados de la home) y mostramos únicamente los adicionales a partir del proyecto 6
+  const additionalProjects = featuredProjects.slice(5);
 
   // 6 tarjetas por página
   const cards = Array.from({ length: 6 });
@@ -57,7 +57,7 @@ export function MoreProjectsPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
           {cards.map((_, index) => {
             const globalIndex = (page - 1) * 6 + index;
-            const project = allProjects[globalIndex];
+            const project = additionalProjects[globalIndex];
 
             if (project) {
               return <ProjectCard key={project.id} project={project} />;
