@@ -187,6 +187,16 @@ export const FEATURED_PROJECTS: Record<Language, Project[]> = {
       status: "production",
       inProduction: true,
     },
+    {
+      id: "proyecto-6",
+      title: "Landing page cerveceria",
+      description: "Es una página web que muestra el servicio de una cerveceria y sus productos.",
+      stack: ["TypeScript", "HTML", "CSS"],
+      repoUrl: "https://rxdrx.github.io/rsdev-landing-cerveceria/",
+      year: "2026",
+      status: "production",
+      inProduction: true,
+    },
   ],
   en: [
     {
@@ -235,6 +245,16 @@ export const FEATURED_PROJECTS: Record<Language, Project[]> = {
       description: "Website showcasing handcrafted custom carpentry products for a family business.",
       stack: ["TypeScript", "HTML", "CSS"],
       repoUrl: "https://rxdrx.github.io/romia-carp/",
+      year: "2026",
+      status: "production",
+      inProduction: true,
+    },
+    {
+      id: "proyecto-6",
+      title: "Brewery Landing Page",
+      description: "Website showcasing service and products of a brewery.",
+      stack: ["TypeScript", "HTML", "CSS"],
+      repoUrl: "https://rxdrx.github.io/rsdev-landing-cerveceria/",
       year: "2026",
       status: "production",
       inProduction: true,
