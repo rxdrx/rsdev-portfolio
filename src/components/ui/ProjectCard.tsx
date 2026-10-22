@@ -87,7 +87,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
     >
       {featured ? (
         /* ── Variante Featured: layout horizontal ── */
-        <div className="flex flex-col gap-5 p-8 md:p-10">
+        <div className="project-card-body flex flex-col gap-5 p-8 md:p-10">
           {/* Header */}
           <div className="flex items-center gap-4">
             <span className="text-label" style={{ color: "var(--color-ink)" }}>
@@ -151,7 +151,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
         </div>
       ) : (
         /* ── Variante Default: layout vertical compacto ── */
-        <div className="flex flex-col gap-5 py-8 px-8 h-full justify-between">
+        <div className="project-card-body flex flex-col gap-5 py-8 px-8 h-full justify-between">
           <div className="flex items-center justify-between px-2">
             <span className="text-label" style={{ color: "var(--color-ink)" }}>
               {project.year}

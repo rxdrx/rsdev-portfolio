@@ -36,7 +36,7 @@ export function Navbar({ isSecondaryPage = false, onBackToHome }: NavbarProps) {
       }}
     >
       <nav
-        className="flex items-center justify-between px-site py-4"
+        className="site-nav flex items-center justify-between px-site py-4"
         role="navigation"
         aria-label="Navegación principal"
       >
@@ -100,7 +100,7 @@ export function Navbar({ isSecondaryPage = false, onBackToHome }: NavbarProps) {
             {MORE_PROJECTS_PAGE_TEXT[lang].backHome}
           </button>
         ) : (
-          <ul className="flex items-center gap-8 list-none">
+          <ul className="site-nav-links flex items-center gap-8 list-none">
             {currentNavLinks.map((link) => (
               <li key={link.href}>
                 <a

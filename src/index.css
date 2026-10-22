@@ -288,3 +288,109 @@ a.link-editorial:hover {
   background-color: var(--color-accent);
   color: var(--color-ink);
 }
+
+/* ------------------------------------------------------------
+   9. RESPONSIVE MÓVIL (solo <= 767px)
+   Todo el bloque vive dentro de la media query: no afecta a PC.
+   ------------------------------------------------------------ */
+@media (max-width: 767px) {
+  :root {
+    --px-site: 1.25rem;
+  }
+
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Las secciones dejan de forzar 100vh: crecen con su contenido */
+  .snap-section {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  /* Navbar: idioma + CV (+ volver). Los links de anclas se ocultan */
+  .site-nav {
+    min-height: 64px;
+    gap: 0.5rem;
+  }
+  .site-nav-links {
+    display: none !important;
+  }
+  .site-nav .btn-editorial {
+    font-size: 0.65rem !important;
+    padding: 0.35rem 0.6rem !important;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  /* Hero */
+  #top h1 {
+    font-size: clamp(3.5rem, 18vw, 5rem) !important;
+  }
+  #top .grid > div:first-child {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+  #top aside {
+    border-top: 1px solid var(--color-ink);
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  /* Proyectos */
+  #proyectos > div:nth-child(2) {
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+  }
+  .project-card-body {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  article.px-8 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Stack: una columna con separadores horizontales */
+  #stack .grid > div {
+    border-right: none !important;
+    border-bottom: 1px solid var(--color-ink);
+  }
+  #stack .grid > div:last-child {
+    border-bottom: none;
+  }
+
+  /* Experiencia */
+  #trayectoria .grid {
+    min-height: 0 !important;
+  }
+  #trayectoria .grid > div:first-child {
+    border-right: none !important;
+    border-bottom: 1px solid var(--color-paper-warm);
+  }
+
+  /* Contacto */
+  #contacto > div:first-child > div {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0.75rem 1.5rem;
+  }
+  #contacto > div:nth-child(2) {
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+  }
+  #contacto a,
+  #contacto button {
+    grid-template-columns: 1fr auto !important;
+    gap: 0.35rem 1rem !important;
+  }
+  #contacto a > span:first-child,
+  #contacto button > span:first-child {
+    grid-column: 1 / -1;
+  }
+  #contacto a > span:nth-child(2),
+  #contacto button > span:nth-child(2) {
+    overflow-wrap: anywhere;
+  }
+}
